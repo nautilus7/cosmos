@@ -1,0 +1,119 @@
+/*
+Theme Name: Cosmos
+Theme URI: github.com/nautilus7/cosmos
+Author: nautilus7
+Author URI: http://nautilus7.no-ip.org
+Description: Fully customizable translation ready starter theme based on twitter's bootstrap and the html5 boilerplate.
+Version: 0.2.2
+License: GNU General Public License
+License URI: license.txt
+Tags: bootstrap, html5, boilerplate, responsive, fluid, microdata, schema.org, translation
+*/
+
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('./font/myriadpro-regular-webfont.eot');
+  src: url('./font/myriadpro-regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('./font/myriadpro-regular-webfont.woff') format('woff'),
+       url('./font/myriadpro-regular-webfont.ttf') format('truetype'),
+       url('./font/myriadpro-regular-webfont.svgz#MyriadProRegular') format('svg'),
+       url('./font/myriadpro-regular-webfont.svg#MyriadProRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('./font/myriadpro-it-webfont.eot');
+  src: url('./font/myriadpro-it-webfont.eot?#iefix') format('embedded-opentype'),
+       url('./font/myriadpro-it-webfont.woff') format('woff'),
+       url('./font/myriadpro-it-webfont.ttf') format('truetype'),
+       url('./font/myriadpro-it-webfont.svgz#MyriadProItalic') format('svg'),
+       url('./font/myriadpro-it-webfont.svg#MyriadProItalic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('./font/myriadpro-bold-webfont.eot');
+  src: url('./font/myriadpro-bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('./font/myriadpro-bold-webfont.woff') format('woff'),
+       url('./font/myriadpro-bold-webfont.ttf') format('truetype'),
+       url('./font/myriadpro-bold-webfont.svgz#MyriadProBold') format('svg'),
+       url('./font/myriadpro-bold-webfont.svg#MyriadProBold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('./font/myriadpro-boldit-webfont.eot');
+  src: url('./font/myriadpro-boldit-webfont.eot?#iefix') format('embedded-opentype'),
+       url('./font/myriadpro-boldit-webfont.woff') format('woff'),
+       url('./font/myriadpro-boldit-webfont.ttf') format('truetype'),
+       url('./font/myriadpro-boldit-webfont.svgz#MyriadProBoldItalic') format('svg'),
+       url('./font/myriadpro-boldit-webfont.svg#MyriadProBoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+}
+
+body, p {
+  font-family: 'Myriad Pro';
+	font-size: 1em;
+	line-height: 1.4em;
+}
+
+p {
+  font-family: 'Myriad Pro';
+	margin: 0 0 1.5em;
+}
+
+#wrapper {
+	max-width: 1330px;
+	margin: auto;
+}
+
+.clear {
+	padding-right: 2em;
+}
+
+i[class*="icon"] {
+	color: tomato;
+}
+
+svg:not(:root) { overflow: hidden; }
+
+label { cursor: pointer; }
+legend { border: 0; *margin-left: -7px; padding: 0; white-space: normal; }
+
+.chromeframe { margin: 0.2em 0; background: #ccc; color: black; padding: 0.2em 0; }
+
+/* For image replacement */
+.ir { border:0; font: 0/0 a; text-shadow: none; color: transparent; background-color: transparent; }
+
+/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
+.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+
+/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: h5bp.com/p */
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+
+/* ==|== print styles =======================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ========================================================================== */
+
+@media print {
+  * { background: transparent !important; color: black !important; box-shadow:none !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster: h5bp.com/s */
+  a, a:visited { text-decoration: underline; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }  /* Don't show links for images, or javascript/internal links */
+  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+  thead { display: table-header-group; } /* h5bp.com/t */
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page { margin: 0.5cm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
+}
