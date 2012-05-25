@@ -3,91 +3,34 @@ Theme Name: Cosmos
 Theme URI: github.com/nautilus7/cosmos
 Author: nautilus7
 Author URI: http://nautilus7.no-ip.org
-Description: Fully customizable translation ready starter theme based on twitter's bootstrap and the html5 boilerplate.
+Description: A fully customizable translation ready starter theme based on twitter's bootstrap and html5 boilerplate.
 Version: 0.2.2
 License: GNU General Public License
 License URI: license.txt
 Tags: bootstrap, html5, boilerplate, responsive, fluid, microdata, schema.org, translation
 */
 
-@font-face {
-  font-family: 'Myriad Pro';
-  src: url('./font/myriadpro-regular-webfont.eot');
-  src: url('./font/myriadpro-regular-webfont.eot?#iefix') format('embedded-opentype'),
-       url('./font/myriadpro-regular-webfont.woff') format('woff'),
-       url('./font/myriadpro-regular-webfont.ttf') format('truetype'),
-       url('./font/myriadpro-regular-webfont.svgz#MyriadProRegular') format('svg'),
-       url('./font/myriadpro-regular-webfont.svg#MyriadProRegular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Myriad Pro';
-  src: url('./font/myriadpro-it-webfont.eot');
-  src: url('./font/myriadpro-it-webfont.eot?#iefix') format('embedded-opentype'),
-       url('./font/myriadpro-it-webfont.woff') format('woff'),
-       url('./font/myriadpro-it-webfont.ttf') format('truetype'),
-       url('./font/myriadpro-it-webfont.svgz#MyriadProItalic') format('svg'),
-       url('./font/myriadpro-it-webfont.svg#MyriadProItalic') format('svg');
-  font-weight: normal;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Myriad Pro';
-  src: url('./font/myriadpro-bold-webfont.eot');
-  src: url('./font/myriadpro-bold-webfont.eot?#iefix') format('embedded-opentype'),
-       url('./font/myriadpro-bold-webfont.woff') format('woff'),
-       url('./font/myriadpro-bold-webfont.ttf') format('truetype'),
-       url('./font/myriadpro-bold-webfont.svgz#MyriadProBold') format('svg'),
-       url('./font/myriadpro-bold-webfont.svg#MyriadProBold') format('svg');
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Myriad Pro';
-  src: url('./font/myriadpro-boldit-webfont.eot');
-  src: url('./font/myriadpro-boldit-webfont.eot?#iefix') format('embedded-opentype'),
-       url('./font/myriadpro-boldit-webfont.woff') format('woff'),
-       url('./font/myriadpro-boldit-webfont.ttf') format('truetype'),
-       url('./font/myriadpro-boldit-webfont.svgz#MyriadProBoldItalic') format('svg'),
-       url('./font/myriadpro-boldit-webfont.svg#MyriadProBoldItalic') format('svg');
-  font-weight: bold;
-  font-style: italic;
-}
-
-body, p {
-  font-family: 'Myriad Pro';
-	font-size: 1em;
-	line-height: 1.4em;
-}
-
 p {
-  font-family: 'Myriad Pro';
-	margin: 0 0 1.5em;
+  margin: 0 0 1.5em;
 }
 
 #wrapper {
-	max-width: 1330px;
-	margin: auto;
+  max-width: 1330px;
+  margin: auto;
 }
 
 .clear {
-	padding-right: 2em;
+  padding-right: 2em;
 }
 
 i[class*="icon"] {
-	color: tomato;
+  color: tomato;
 }
 
 svg:not(:root) { overflow: hidden; }
 
 label { cursor: pointer; }
 legend { border: 0; *margin-left: -7px; padding: 0; white-space: normal; }
-
-.chromeframe { margin: 0.2em 0; background: #ccc; color: black; padding: 0.2em 0; }
 
 /* For image replacement */
 .ir { border:0; font: 0/0 a; text-shadow: none; color: transparent; background-color: transparent; }
