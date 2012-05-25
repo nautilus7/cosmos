@@ -27,5 +27,3 @@ register_sidebar(array(
   'before_title'  => '<h5 class="widgettitle">',
   'after_title'   => '</h5>'
 ));
-
-?>
