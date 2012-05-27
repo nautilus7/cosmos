@@ -19,7 +19,7 @@ add_filter('excerpt_more', 'cosmos_excerpt_more', 10, 0);
 function cosmos_post_author($text = '', $icon = true) {
 
   $output = ( empty($text) && $icon) ? '<span class="post-author clear"><i class="icon-user"></i> ' : '<span class="post-author">' . esc_html($text);
-  $output .= '<a href="' . esc_url(get_author_posts_url(get_the_author_meta('id'))) . '" title="';
+  $output .= '<a href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . '" title="';
   $output .= esc_attr__('View all posts by ', 'cosmos') . esc_attr(get_the_author()) . '">' . esc_html(get_the_author()) . '</a></span>';
 
   echo $output;
