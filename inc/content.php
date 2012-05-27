@@ -71,7 +71,7 @@ function cosmos_post_category($text = '', $separator = ', ', $icon = true) {
       $title = esc_attr__('View all posts in ', 'cosmos') . esc_attr($category->name);
       $name = esc_html($category->name);
 
-      $category_links[] = '<a href="' . "$link" . '" title="' . "$title" . '">' . "$name" . '</a>';
+      $category_links[] = '<a href="' . $link . '" title="' . $title . '">' . $name . '</a>';
     }
 
     $output = ( empty($text) && $icon ) ? '<span class="post-category clear"><i class="icon-bookmark"></i> ' : '<span class="post-category">' . esc_html($text);
@@ -96,7 +96,7 @@ function cosmos_post_tag($text = '', $separator = ', ', $icon = true) {
       $title = esc_attr__('View all posts tagged ', 'cosmos') . esc_attr($tag->name);
       $name = esc_html($tag->name);
 
-      $tag_links[] = '<a href="' . "$link" . '" title="' . "$title" . '">' . "$name" . '</a>';
+      $tag_links[] = '<a href="' . $link . '" title="' . $title . '">' . $name . '</a>';
     }
 
     $output = ( empty($text) && $icon ) ? '<span class="post-tags clear"><i class="icon-tags"></i> ' : '<span class="post-tags">' . esc_html($text);
