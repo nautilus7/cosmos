@@ -1,7 +1,7 @@
 <?php
 
 // http://codex.wordpress.org/Function_Reference/register_nav_menus
-register_nav_menus( array(
+register_nav_menus(array(
   'top'       => 'Top',
   'primary'   => 'Primary',
   'secondary' => 'Secondary',
@@ -29,18 +29,18 @@ function cosmos_nav_menu( $theme_location, $type ) {
 
   elseif ( $type == 'navbar-brand' ) {
 
-    $wrap = '<div class="navbar">' . "\n" . '<div class="navbar-inner">' . "\n" . '<div class="container">' . "\n";
-    $wrap .= '<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">' . "\n";
-    $wrap .= '<span class="icon-bar"></span>' . "\n";
-    $wrap .= '<span class="icon-bar"></span>' . "\n";
-    $wrap .= '<span class="icon-bar"></span>' . "\n" . '</a>' . "\n";
-    $wrap .= '<a class="brand" href="' . home_url('/') . '">';
+    $wrap  = "<div class=\"navbar\">\n<div class=\"navbar-inner\">\n<div class=\"container\">\n";
+    $wrap .= "<a class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".nav-collapse\">\n";
+    $wrap .= "<span class=\"icon-bar\"></span>\n";
+    $wrap .= "<span class=\"icon-bar\"></span>\n";
+    $wrap .= "<span class=\"icon-bar\"></span>\n</a>\n";
+    $wrap .= "<a class=\"brand\" href=\"" . home_url('/') . "\">";
 
     echo "$wrap";
 
-    bloginfo( 'name' );
+    bloginfo('name');
 
-    echo '</a>' . "\n" .'<div class="nav-collapse">' . "\n";
+    echo "</a>\n<div class=\"nav-collapse\">\n";
 
     wp_nav_menu(array(
       'theme_location' => $theme_location,
@@ -49,17 +49,17 @@ function cosmos_nav_menu( $theme_location, $type ) {
       'walker' => new Bootstrap_Walker()
     ));
 
-    echo "\n" . '</div>' . "\n" . '</div>' . "\n" . '</div>' . "\n" . '</div>';
+    echo "\n</div>\n</div>\n</div>\n</div>";
   }
 
   elseif ( $type == 'navbar' ) {
 
-    $wrap = '<div class="navbar">' . "\n" . '<div class="navbar-inner">' . "\n" . '<div class="container">' . "\n";
-    $wrap .= '<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">' . "\n";
-    $wrap .= '<span class="icon-bar"></span>' . "\n";
-    $wrap .= '<span class="icon-bar"></span>' . "\n";
-    $wrap .= '<span class="icon-bar"></span>' . "\n" . '</a>' . "\n";
-    $wrap .= '<div class="nav-collapse">' . "\n";
+    $wrap  = "<div class=\"navbar\">\n<div class=\"navbar-inner\">\n<div class=\"container\">\n";
+    $wrap .= "<a class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".nav-collapse\">\n";
+    $wrap .= "<span class=\"icon-bar\"></span>\n";
+    $wrap .= "<span class=\"icon-bar\"></span>\n";
+    $wrap .= "<span class=\"icon-bar\"></span>\n</a>\n";
+    $wrap .= "<div class=\"nav-collapse\">\n";
 
     echo "$wrap";
 
@@ -70,7 +70,7 @@ function cosmos_nav_menu( $theme_location, $type ) {
       'walker' => new Bootstrap_Walker()
     ));
 
-    echo "\n" . '</div>' . "\n" . '</div>' . "\n" . '</div>' . "\n" . '</div>';
+    echo "\n</div>\n</div>\n</div>\n</div>";
   }
 
   else {
@@ -82,16 +82,15 @@ function cosmos_nav_menu( $theme_location, $type ) {
 
 class Bootstrap_Walker extends Walker_Nav_Menu {
 
+  function start_lvl(&$output, $depth) {
 
-  function start_lvl( &$output, $depth ) {
-
-    $indent = str_repeat( "\t", $depth );
+    $indent = str_repeat("\t", $depth);
     $output	.= "\n$indent<ul class=\"dropdown-menu\">\n";
   }
 
-  function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+  function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
 
-    $indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
+    $indent = ( $depth ) ? str_repeat("\t", $depth) : '';
 
     $li_attributes = '';
     $class_names = $value = '';
@@ -133,19 +132,20 @@ class Bootstrap_Walker extends Walker_Nav_Menu {
     $id_field = $this->db_fields['id'];
 
     //display this element
-    if ( is_array( $args[0] ) ) 
-      $args[0]['has_children'] = ! empty($children_elements[$element->$id_field]);
-    else if ( is_object( $args[0] ) ) 
-      $args[0]->has_children = ! empty($children_elements[$element->$id_field]); 
+    if ( is_array($args[0]) ) 
+      $args[0]['has_children'] = !empty($children_elements[$element->$id_field]);
+
+    else if ( is_object($args[0]) ) 
+      $args[0]->has_children = !empty($children_elements[$element->$id_field]); 
       $cb_args = array_merge(array(&$output, $element, $depth), $args);
       call_user_func_array(array(&$this, 'start_el'), $cb_args);
 
       $id = $element->$id_field;
 
     // descend only when the depth is right and there are childrens for this element
-    if ( ($max_depth == 0 || $max_depth > $depth+1 ) && isset($children_elements[$id] ) ) {
+    if ( ( $max_depth == 0 || $max_depth > $depth+1 ) && isset($children_elements[$id]) ) {
 
-      foreach( $children_elements[ $id ] as $child ) {
+      foreach( $children_elements[$id] as $child ) {
 
         if ( !isset($newlevel) ) {
           $newlevel = true;
@@ -155,7 +155,7 @@ class Bootstrap_Walker extends Walker_Nav_Menu {
         }
         $this->display_element($child, $children_elements, $max_depth, $depth + 1, $args, $output);
       }
-        unset($children_elements[ $id ]);
+      unset($children_elements[$id]);
     }
 
     if ( isset($newlevel) && $newlevel ) {
@@ -230,8 +230,8 @@ function bootstrap_paginate_links($args = '') {
     'current' => 0,
     'show_all' => false,
     'prev_next' => true,
-    'prev_text' => __('&laquo; Previous'),
-    'next_text' => __('Next &raquo;'),
+    'prev_text' => __('&laquo; Previous', 'cosmos'),
+    'next_text' => __('Next &raquo;', 'cosmos'),
     'end_size' => 1,
     'mid_size' => 2,
     'add_args' => false, // array of query args to add
@@ -244,8 +244,10 @@ function bootstrap_paginate_links($args = '') {
   // Who knows what else people pass in $args
   $total = (int) $total;
 
-  if ( $total < 2 )
+  if ( $total < 2 ) {
+
     return;
+  }
 
   $current = (int) $current;
   $end_size = 0  < (int) $end_size ? (int) $end_size : 1; // Out of bounds?  Make it the default.
@@ -256,74 +258,79 @@ function bootstrap_paginate_links($args = '') {
   $n = 0;
   $dots = false;
 
-  if ( $prev_next && $current && 1 < $current ) :
+  if ( $prev_next && $current && 1 < $current ) {
 
     $link = str_replace('%_%', 2 == $current ? '' : $format, $base);
     $link = str_replace('%#%', $current - 1, $link);
 
-    if ( $add_args )
+    if ( $add_args ) {
+
       $link = add_query_arg( $add_args, $link );
+    }
 
     $link .= $add_fragment;
     $page_links[] = '<li><a href="' . esc_url(apply_filters('paginate_links', $link)) . '">' . $prev_text . '</a></li>';
+  }
 
-  endif;
-
-  for ( $n = 1; $n <= $total; $n++ ) :
+  for ( $n = 1; $n <= $total; $n++ ) {
 
     $n_display = number_format_i18n($n);
 
-    if ( $n == $current ) :
+    if ( $n == $current ) {
 
       $page_links[] = '<li class="active"><a>' . $n_display . '</a></li>';
       $dots = true;
+    }
 
-    else :
+    else {
 
-      if ( $show_all || ( $n <= $end_size || ( $current && $n >= $current - $mid_size && $n <= $current + $mid_size ) || $n > $total - $end_size ) ) :
+      if ( $show_all || ( $n <= $end_size || ( $current && $n >= $current - $mid_size && $n <= $current + $mid_size ) || $n > $total - $end_size ) ) {
 
         $link = str_replace('%_%', 1 == $n ? '' : $format, $base);
         $link = str_replace('%#%', $n, $link);
 
-        if ( $add_args )
-          $link = add_query_arg( $add_args, $link );
+        if ( $add_args ) {
+
+          $link = add_query_arg($add_args, $link);
+        }
 
         $link .= $add_fragment;
         $page_links[] = '<li><a href="' . esc_url(apply_filters('paginate_links', $link)) . '">' . $n_display . '</a></li>';
         $dots = true;
+      }
 
-      elseif ( $dots && !$show_all ) :
+      elseif ( $dots && !$show_all ) {
 
         $page_links[] = '<li class="disabled"><a>' . __('&hellip;') . '</a></li>';
         $dots = false;
+      }
+    }
+  }
 
-      endif;
-
-      endif;
-
-  endfor;
-
-  if ( $prev_next && $current && ( $current < $total || -1 == $total ) ) :
+  if ( $prev_next && $current && ( $current < $total || -1 == $total ) ) {
 
     $link = str_replace('%_%', $format, $base);
     $link = str_replace('%#%', $current + 1, $link);
 
-    if ( $add_args )
-      $link = add_query_arg( $add_args, $link );
+    if ( $add_args ) {
+
+      $link = add_query_arg($add_args, $link);
+    }
 
     $link .= $add_fragment;
     $page_links[] = '<li><a href="' . esc_url( apply_filters('paginate_links', $link)) . '">' . $next_text . '</a></li>';
+  }
 
-  endif;
-
-  $r .= '<div class="pagination">' . "\n\t" . '<ul>' ."\n\t";
+  $r .= "<div class=\"pagination\">\n\t<ul>\n\t";
   $r .= join("\n\t", $page_links);
-  $r .= "\n\t" . '</ul>' . "\n" . '</div>';
+  $r .= "\n\t</ul>\n</div>";
 
   return $r;
 }
 
-// post navigation
+// Post Navigation
+// Create the "previous post" and "next post" links on single.php
+// Modified versions of Wordpress' original functions to match bootstrap markup
 function cosmos_previous_post_link($format='%link', $link='%title', $in_same_cat = false, $excluded_categories = '') {
 
   cosmos_adjacent_post_link($format, $link, $in_same_cat, $excluded_categories, true);
@@ -336,18 +343,27 @@ function cosmos_next_post_link($format='%link', $link='%title', $in_same_cat = f
 
 function cosmos_adjacent_post_link($format, $link, $in_same_cat = false, $excluded_categories = '', $previous = true) {
 
-  if ( $previous && is_attachment() )
-    $post = & get_post($GLOBALS['post']->post_parent);
+  if ( $previous && is_attachment() ) {
 
-  else
+    $post = &get_post($GLOBALS['post']->post_parent);
+  }
+
+  else {
+
     $post = get_adjacent_post($in_same_cat, $excluded_categories, $previous);
+  } 
 
-  if ( !$post )
+  if ( !$post ) {
+
     return;
+  }
 
   $title = $post->post_title;
 
-  if ( empty($post->post_title) ) $title = $previous ? __('Previous Post') : __('Next Post');
+  if ( empty($post->post_title) ) {
+
+    $title = $previous ? __('Previous Post') : __('Next Post');
+  }
 
   $title = apply_filters('the_title', $title, $post->ID);
   $date = mysql2date(get_option('date_format'), $post->post_date);
@@ -359,7 +375,7 @@ function cosmos_adjacent_post_link($format, $link, $in_same_cat = false, $exclud
   $format = str_replace('%link', $link, $format);
   $adjacent = $previous ? 'previous' : 'next';
 
-  echo apply_filters( "{$adjacent}_post_link", $format, $link );
+  echo apply_filters("{$adjacent}_post_link", $format, $link);
 }
 
 // Modify Yoast's WP SEO Breadcrumbs to Match Twitter Bootstrap Breadcrumb Structure
