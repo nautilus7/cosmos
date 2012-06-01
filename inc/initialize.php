@@ -18,10 +18,9 @@ function cosmos_enqueue_scripts() {
 
     // Check if Google CDN is working
     $url = ( is_ssl() ? 'https:' : 'http:' ) . '//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js';
-    $resp = wp_remote_head($url);
 
     // Load local jquery if Google down
-    if ( is_wp_error($resp) || 200 != $resp['response']['code'] ) {
+    if ( 200 != wp_remote_retrieve_response_code(wp_remote_head($url)) ) {
 
     	$url = get_template_directory_uri() . '/js/vendor/jquery-1.7.2.min.js';
     }
