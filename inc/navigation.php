@@ -8,8 +8,63 @@ register_nav_menus(array(
   'bottom'    => 'Bottom'
 ));
 
-//menu building
-function cosmos_nav_menu( $theme_location, $type ) {
+// Basic menu function
+// Output matches bootstrap stracture
+function cosmos_nav_menu($theme_location, $type) {
+
+    $wrap_before = '';
+    $wrap_after = '';
+
+  switch ( $type ) {
+
+    case 'basic-tabs' :
+      $menu_class = 'nav nav-tabs';
+      break;
+    case 'stacked-tabs' :
+      $menu_class = 'nav nav-tabs nav-stacked';
+      break;
+    case 'basic-pills' :
+      $menu_class = 'nav nav-pills';
+      break;
+    case 'stacked-pills' :
+      $menu_class = 'nav nav-pills nav-stacked';
+      break;
+    case 'list' :
+      $menu_class = 'nav nav-list';
+      break;
+    case 'navbar' :
+      $menu_class = 'nav';
+      $wrap_before  = "<div class=\"navbar\">\n<div class=\"navbar-inner\">\n<div class=\"container\">\n";
+      $wrap_before .= "<a class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".nav-collapse\">\n";
+      $wrap_before .= "<span class=\"icon-bar\"></span>\n<span class=\"icon-bar\"></span>\n<span class=\"icon-bar\"></span>\n</a>\n";
+      $wrap_before .= "<div class=\"nav-collapse\">\n";
+      $wrap_after = "\n</div>\n</div>\n</div>\n</div>";
+      break;
+    case 'navbar-brand' :
+      $menu_class = 'nav';
+      $wrap_before  = "<div class=\"navbar\">\n<div class=\"navbar-inner\">\n<div class=\"container\">\n";
+      $wrap_before .= "<a class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".nav-collapse\">\n";
+      $wrap_before .= "<span class=\"icon-bar\"></span>\n<span class=\"icon-bar\"></span>\n<span class=\"icon-bar\"></span>\n</a>\n";
+      $wrap_before .= "<a class=\"brand\" href=\"" . home_url('/') . "\">" . esc_html(get_bloginfo('name', 'display')) . "</a>\n";
+      $wrap_before .= "<div class=\"nav-collapse\">\n";
+      $wrap_after = "\n</div>\n</div>\n</div>\n</div>";
+      break;
+  }
+
+  echo $wrap_before;
+
+  wp_nav_menu(array(
+    'theme_location' => $theme_location,
+    'container' => false,
+    'menu_class' => $menu_class,
+    'walker' => new Bootstrap_Walker()
+  ));
+
+  echo $wrap_after;
+}
+
+/*
+function cosmos_nav_menu($theme_location, $type) {
 
   if ( $type !== 'navbar' && $type !== 'navbar-brand' ) {
 
@@ -27,59 +82,33 @@ function cosmos_nav_menu( $theme_location, $type ) {
     ));
   }
 
-  elseif ( $type == 'navbar-brand' ) {
-
-    $wrap  = "<div class=\"navbar\">\n<div class=\"navbar-inner\">\n<div class=\"container\">\n";
-    $wrap .= "<a class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".nav-collapse\">\n";
-    $wrap .= "<span class=\"icon-bar\"></span>\n";
-    $wrap .= "<span class=\"icon-bar\"></span>\n";
-    $wrap .= "<span class=\"icon-bar\"></span>\n</a>\n";
-    $wrap .= "<a class=\"brand\" href=\"" . home_url('/') . "\">";
-
-    echo "$wrap";
-
-    bloginfo('name');
-
-    echo "</a>\n<div class=\"nav-collapse\">\n";
-
-    wp_nav_menu(array(
-      'theme_location' => $theme_location,
-      'container' => false,
-      'menu_class' => 'nav',
-      'walker' => new Bootstrap_Walker()
-    ));
-
-    echo "\n</div>\n</div>\n</div>\n</div>";
-  }
-
-  elseif ( $type == 'navbar' ) {
-
-    $wrap  = "<div class=\"navbar\">\n<div class=\"navbar-inner\">\n<div class=\"container\">\n";
-    $wrap .= "<a class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".nav-collapse\">\n";
-    $wrap .= "<span class=\"icon-bar\"></span>\n";
-    $wrap .= "<span class=\"icon-bar\"></span>\n";
-    $wrap .= "<span class=\"icon-bar\"></span>\n</a>\n";
-    $wrap .= "<div class=\"nav-collapse\">\n";
-
-    echo "$wrap";
-
-    wp_nav_menu(array(
-      'theme_location' => $theme_location,
-      'container' => false,
-      'menu_class' => 'nav',
-      'walker' => new Bootstrap_Walker()
-    ));
-
-    echo "\n</div>\n</div>\n</div>\n</div>";
-  }
-
   else {
 
-    echo 'Unknown menu type.';
-    echo 'Available types are "basic-tabs", "stacked-tabs", "basic-pills", "stacked-pills", "list", "navbar" and "navbar-brand".';
-  }
-}
+    $wrap  = "<div class=\"navbar\">\n<div class=\"navbar-inner\">\n<div class=\"container\">\n";
+    $wrap .= "<a class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".nav-collapse\">\n";
+    $wrap .= "<span class=\"icon-bar\"></span>\n<span class=\"icon-bar\"></span>\n<span class=\"icon-bar\"></span>\n</a>\n";
+    $wrap .= ( $type == 'navbar-brand' ) ? "<a class=\"brand\" href=\"" . home_url() . "\">" . get_bloginfo('name', 'display') . "</a>\n" : "";
+    $wrap .= "<div class=\"nav-collapse\">\n";
 
+    echo $wrap;
+
+    wp_nav_menu(array(
+      'theme_location' => $theme_location,
+      'container' => false,
+      'menu_class' => 'nav',
+      'walker' => new Bootstrap_Walker()
+    ));
+
+    echo "\n</div>\n</div>\n</div>\n</div>";
+  }
+
+  //else {
+
+    //echo 'Unknown menu type.';
+    //echo 'Available types are "basic-tabs", "stacked-tabs", "basic-pills", "stacked-pills", "list", "navbar" and "navbar-brand".';
+  //}
+}
+*/
 class Bootstrap_Walker extends Walker_Nav_Menu {
 
   function start_lvl(&$output, $depth) {
@@ -90,35 +119,33 @@ class Bootstrap_Walker extends Walker_Nav_Menu {
 
   function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
 
+    global $wp_query;
     $indent = ( $depth ) ? str_repeat("\t", $depth) : '';
-
-    $li_attributes = '';
-    $class_names = $value = '';
-
-    $classes = empty( $item->classes ) ? array() : (array) $item->classes;
-    $classes[] = ($args->has_children) ? 'dropdown' : '';
-    $classes[] = ($item->current || $item->current_item_ancestor) ? 'active' : '';
-    $classes[] = 'menu-item-' . $item->ID;
-
-
-    $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args));
-    $class_names = ' class="' . esc_attr($class_names) . '"';
 
     $id = apply_filters('nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args);
     $id = strlen($id) ? ' id="' . esc_attr($id) . '"' : '';
 
-    $output .= $indent . '<li' . $id . $value . $class_names . $li_attributes . '>';
+    $classes = empty( $item->classes ) ? array() : (array) $item->classes;
+    $classes[] = ($args->has_children) ? 'dropdown' : ''; // aditional element
+    $classes[] = ($item->current || $item->current_item_ancestor) ? 'active' : '';
 
-    $attributes  = !empty($item->attr_title) ? ' title="'  . esc_attr($item->attr_title) . '"' : '';
-    $attributes .= !empty($item->target)     ? ' target="' . esc_attr($item->target    ) . '"' : '';
-    $attributes .= !empty($item->xfn)        ? ' rel="'    . esc_attr($item->xfn       ) . '"' : '';
-    $attributes .= !empty($item->url)        ? ' href="'   . esc_attr($item->url       ) . '"' : '';
-    $attributes .= ($args->has_children) 	   ? ' class="dropdown-toggle" data-toggle="dropdown"' : '';
+    $class_names = '';
+    $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args));
+    $class_names = ' class="' . esc_attr($class_names) . '"';
+
+    $output .= $indent . '<li' . $id . $class_names . '>';
+
+    $attributes  = !empty($item->attr_title) ? ' title="'  . esc_attr($item->attr_title) . '"'   : '';
+    $attributes .= !empty($item->target)     ? ' target="' . esc_attr($item->target    ) . '"'   : '';
+    $attributes .= !empty($item->xfn)        ? ' rel="'    . esc_attr($item->xfn       ) . '"'   : '';
+    $attributes .= !empty($item->url)        ? ' href="'   . esc_attr($item->url       ) . '"'   : '';
+    $attributes .= ($args->has_children) 	   ? ' class="dropdown-toggle" data-toggle="dropdown"' : ''; // aditional element
 
     $item_output  = $args->before;
     $item_output .= '<a' . $attributes . '>';
     $item_output .= $args->link_before . apply_filters('the_title', $item->title, $item->ID) . $args->link_after;
-    $item_output .= ($args->has_children) ? ' <b class="caret"></b></a>' : '</a>';
+    $item_output .= ($args->has_children) ? ' <b class="caret"></b>' : ''; // aditional element
+    $item_output .= '</a>';
     $item_output .= $args->after;
 
     $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
@@ -132,15 +159,19 @@ class Bootstrap_Walker extends Walker_Nav_Menu {
     $id_field = $this->db_fields['id'];
 
     //display this element
-    if ( is_array($args[0]) ) 
+    if ( is_array($args[0]) ) {
+
       $args[0]['has_children'] = !empty($children_elements[$element->$id_field]);
+    }
 
-    else if ( is_object($args[0]) ) 
-      $args[0]->has_children = !empty($children_elements[$element->$id_field]); 
-      $cb_args = array_merge(array(&$output, $element, $depth), $args);
-      call_user_func_array(array(&$this, 'start_el'), $cb_args);
+    elseif ( is_object($args[0]) ) {
 
-      $id = $element->$id_field;
+      $args[0]->has_children = !empty($children_elements[$element->$id_field]);
+    }
+
+    $cb_args = array_merge(array(&$output, $element, $depth), $args);
+    call_user_func_array(array(&$this, 'start_el'), $cb_args);
+    $id = $element->$id_field;
 
     // descend only when the depth is right and there are childrens for this element
     if ( ( $max_depth == 0 || $max_depth > $depth+1 ) && isset($children_elements[$id]) ) {
@@ -169,65 +200,21 @@ class Bootstrap_Walker extends Walker_Nav_Menu {
     call_user_func_array(array(&$this, 'end_el'), $cb_args);
 
   }
-
-}
-// not used - ment to replace the function below
-function cosmos_paginate_links() {
-
-    global $wp_rewrite, $wp_query;
-
-    $wp_query->query_vars['paged'] > 1 ? $current = $wp_query->query_vars['paged'] : $current = 1;
-
-    $pagination = array(
-        'base' => @add_query_arg('page','%#%'),
-        'format' => '',
-        'total' => $wp_query->max_num_pages,
-        'current' => $current,
-        'prev_text' => __('« Previous', 'cosmos'),
-        'next_text' => __('Next »', 'cosmos'),
-        'end_size' => 1,
-        'mid_size' => 2,
-        'show_all' => true,
-        'type' => 'list'
-    );
-
-    if ( $wp_rewrite->using_permalinks() )
-            $pagination['base'] = user_trailingslashit(trailingslashit(remove_query_arg('s', get_pagenum_link(1))) . 'page/%#%/', 'paged' );
-
-    if ( !empty($wp_query->query_vars['s']) )
-            $pagination['add_args'] = array('s' => get_query_var('s'));
-
-    echo paginate_links($pagination);
 }
 
-//construct the page navigation
-function cosmos_page_nav() {
+// Page navigation
+// alternate version of wordpress' paginate_links
+function cosmos_page_nav($args = '') {
 
   global $wp_query, $wp_rewrite;
 
-  if ( $wp_query->max_num_pages > 1 ) {
-
-    $current_page = max(1, get_query_var('paged'));
-
-    $args = array(
-      'base'    => get_pagenum_link(1).'%_%',
-      'format'  => 'page/%#%',
-      'total'   => $wp_query->max_num_pages,
-      'current' => $current_page
-    );
-
-    echo bootstrap_paginate_links($args);
-  }
-}
-
-// alternate version of wordpress' paginate_links
-function bootstrap_paginate_links($args = '') {
+  //if ( !empty($wp_query->query_vars['s']) ) $pagination['add_args'] = array('s' => get_query_var('s'));
 
   $defaults = array(
-    'base' => '%_%', // http://example.com/all_posts.php%_% : %_% is replaced by format (below)
-    'format' => '?page=%#%', // ?page=%#% : %#% is replaced by the page number
-    'total' => 1,
-    'current' => 0,
+    'base' => get_pagenum_link(1).'%_%', // %_% is replaced by format (below)
+    'format' => ( $wp_rewrite->using_permalinks() ) ? 'page/%#%/' : '?page=%#%', // %#% is replaced by the page number
+    'total' => $wp_query->max_num_pages,
+    'current' => ( $wp_query->query_vars['paged'] > 1 ) ? $wp_query->query_vars['paged'] : 1,
     'show_all' => false,
     'prev_next' => true,
     'prev_text' => __('&laquo; Previous', 'cosmos'),
@@ -265,7 +252,7 @@ function bootstrap_paginate_links($args = '') {
 
     if ( $add_args ) {
 
-      $link = add_query_arg( $add_args, $link );
+      $link = add_query_arg($add_args, $link);
     }
 
     $link .= $add_fragment;
@@ -318,7 +305,7 @@ function bootstrap_paginate_links($args = '') {
     }
 
     $link .= $add_fragment;
-    $page_links[] = '<li><a href="' . esc_url( apply_filters('paginate_links', $link)) . '">' . $next_text . '</a></li>';
+    $page_links[] = '<li><a href="' . esc_url(apply_filters('paginate_links', $link)) . '">' . $next_text . '</a></li>';
   }
 
   $r .= "<div class=\"pagination\">\n\t<ul>\n\t";
@@ -384,6 +371,6 @@ function cosmos_bootstrap_breadcrumb() {
   if ( function_exists('yoast_breadcrumb') ) {
 
     $breadcrumbs = yoast_breadcrumb('<ul class="breadcrumb"><li>', '</li></ul>', false);
-    echo str_replace('|', ' <span class="divider">/</span></li><li>', $breadcrumbs);
+    echo str_replace('&raquo;', ' <span class="divider">/</span></li><li>', $breadcrumbs);
   }
 }
