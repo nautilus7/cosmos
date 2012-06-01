@@ -16,11 +16,11 @@ function cosmos_excerpt_more() {
 add_filter('excerpt_more', 'cosmos_excerpt_more', 10, 0);
 
 // Display Post Author
-function cosmos_post_author($text = '', $icon = true) {
+function cosmos_post_author($text = '', $link = true, $icon = true) {
 
-  $output = ( empty($text) && $icon) ? '<span class="post-author clear"><i class="icon-user"></i> ' : '<span class="post-author">' . esc_html($text);
-  $output .= '<a href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . '" title="';
-  $output .= esc_attr__('View all posts by ', 'cosmos') . esc_attr(get_the_author()) . '">' . esc_html(get_the_author()) . '</a></span>';
+  $output = ( empty($text) && $icon ) ? '<span class="post-author clear"><i class="icon-user"></i> ' : '<span class="post-author">' . esc_html($text);
+  $output .= ( $link ) ? '<a href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . '" title="' . esc_attr__('View all posts by ', 'cosmos') . esc_attr(get_the_author()) . '">' . esc_html(get_the_author()) . '</a>' : esc_html(get_the_author());
+  $output .= '</span>';
 
   echo $output;
 }
@@ -32,10 +32,10 @@ function cosmos_post_date($text = '', $relative = true, $icon = true) {
   if ( empty($text) ) {
 
     $output = ( $icon ) ? '<span class="post-date clear"><i class="icon-time"></i> ' : '<span class="post-date">';
-    $output .= '<time datetime="' . esc_attr(get_the_time('c')) . '" pubdate>';
+    $output .= '<time datetime="' . esc_attr(get_the_time('c')) . '">';
 
     // Use relative time only if posted in the last 24 hours
-    if ( $relative && 60*60*24 > (current_time('timestamp') - get_the_time('U')) ) {
+    if ( $relative && 60*60*24*1 > (current_time('timestamp') - get_the_time('U')) ) {
 
       $output .= esc_html(human_time_diff(get_the_time('U'), current_time('timestamp'))) . esc_html__(' ago', 'cosmos');
       $output .= '</time></span>';
