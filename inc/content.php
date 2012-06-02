@@ -35,7 +35,7 @@ function cosmos_post_date($text = '', $relative = true, $icon = true) {
     $output .= '<time datetime="' . esc_attr(get_the_time('c')) . '">';
 
     // Use relative time only if posted in the last 24 hours
-    if ( $relative && 60*60*24*1 > (current_time('timestamp') - get_the_time('U')) ) {
+    if ( $relative && 60*60*24*1 > ( current_time('timestamp') - get_the_time('U') ) ) {
 
       $output .= esc_html(human_time_diff(get_the_time('U'), current_time('timestamp'))) . esc_html__(' ago', 'cosmos');
       $output .= '</time></span>';
@@ -50,57 +50,73 @@ function cosmos_post_date($text = '', $relative = true, $icon = true) {
   else {
 
     $output = '<span class="post-date">' . esc_html($text);
-    $output .= '<time datetime="' . esc_attr(get_the_time('c')) . '" pubdate>' . esc_html(get_the_date()) . '</time></span>';
+    $output .= '<time datetime="' . esc_attr(get_the_time('c')) . '">' . esc_html(get_the_date()) . '</time></span>';
   }
 
   echo $output;
 }
 
 // Display Post Category
-function cosmos_post_category($text = '', $separator = ', ', $icon = true) {
+function cosmos_post_category($args = '') {
 
-  $post_category = get_the_category();
+  $args = wp_parse_args($args, array(
+    'text' => '',
+    'sep' => ', ',
+    'icon' => 'bookmark',
+    'before' => '<span class="post-category">',
+    'after' => '</span>'
+  ));
 
-  if ( $post_category ) {
+  extract($args, EXTR_SKIP);
+  $categories = get_the_category();
 
-    $category_links = array();
+  if ( $categories ) {
 
-    foreach ( $post_category as $category ) {
+    foreach ( $categories as $category ) {
 
-      $link = esc_url(get_category_link($category->term_id));
-      $title = esc_attr__('View all posts in ', 'cosmos') . esc_attr($category->name);
-      $name = esc_html($category->name);
-
-      $category_links[] = '<a href="' . $link . '" title="' . $title . '">' . $name . '</a>';
+      $url = get_category_link($category->term_id);
+      $name = $category->name;
+      $title = __('View all posts in ', 'cosmos') . $name;
+      $links[] = '<a href="' . esc_url($url) . '" title="' . esc_attr($title) . '">' . esc_html($name) . '</a>';
     }
 
-    $output = ( empty($text) && $icon ) ? '<span class="post-category clear"><i class="icon-bookmark"></i> ' : '<span class="post-category">' . esc_html($text);
-    $output .= join($separator, $category_links) . '</span>';
+    $output  = $before;
+    $output .= ( empty($icon) ) ? '' : '<i class="icon-'. $icon . '"></i> ';
+    $output .= esc_html($text) . join($sep, $links);
+    $output .= $after;
 
     echo $output;
   }
 }
 
 // Display Post Tags
-function cosmos_post_tag($text = '', $separator = ', ', $icon = true) {
+function cosmos_post_tag($args = '') {
 
-  $post_tags = get_the_tags();
+  $args = wp_parse_args($args, array(
+    'text' => '',
+    'sep' => ', ',
+    'icon' => 'tags',
+    'before' => '<span class="post-tags">',
+    'after' => '</span>'
+  ));
 
-  if ( $post_tags ) {
+  extract($args, EXTR_SKIP);
+  $tags = get_the_tags();
 
-    $tag_links = array();
+  if ( $tags ) {
 
-    foreach ( $post_tags as $tag ) {
+    foreach ( $tags as $tag ) {
 
-      $link = esc_url(get_tag_link($tag->term_id));
-      $title = esc_attr__('View all posts tagged ', 'cosmos') . esc_attr($tag->name);
-      $name = esc_html($tag->name);
-
-      $tag_links[] = '<a href="' . $link . '" title="' . $title . '">' . $name . '</a>';
+      $url = get_tag_link($tag->term_id);
+      $name = $tag->name;
+      $title = __('View all posts tagged ', 'cosmos') . $name;
+      $links[] = '<a href="' . esc_url($url) . '" title="' . esc_attr($title) . '">' . esc_html($name) . '</a>';
     }
 
-    $output = ( empty($text) && $icon ) ? '<span class="post-tags clear"><i class="icon-tags"></i> ' : '<span class="post-tags">' . esc_html($text);
-    $output .= join($separator, $tag_links) . '</span>';
+    $output  = $before;
+    $output .= ( empty($icon) ) ? '' : '<i class="icon-'. $icon . '"></i> ';
+    $output .= esc_html($text) . join($sep, $links);
+    $output .= $after;
 
     echo $output;
   }
