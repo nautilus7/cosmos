@@ -49,32 +49,33 @@ function cosmos_post_author($args = '') {
 }
 
 // Display Post Date
-function cosmos_post_date($text = '', $relative = true, $icon = true) {
+function cosmos_post_date($args = '') {
 
-	// If a string is set before the time, don't display the icon or relative time format
-	if ( empty($text) ) {
+	$args = wp_parse_args($args, array(
+		'text' => '',
+		'relative' => 7,
+		'icon' => 'time',
+		'before' => '<span class="post-date">',
+		'after' => '</span>'
+	));
 
-		$output = ( $icon ) ? '<span class="post-date clear"><i class="icon-time"></i> ' : '<span class="post-date">';
-		$output .= '<time datetime="' . esc_attr(get_the_time('c')) . '">';
+	extract($args, EXTR_SKIP);
 
-		// Use relative time only if posted in the last 24 hours
-		if ( $relative && 60*60*24*1 > ( current_time('timestamp') - get_the_time('U') ) ) {
+	if ( 60*60*24*$relative > ( current_time('timestamp') - get_the_time('U') ) ) {
 
-			$output .= esc_html(human_time_diff(get_the_time('U'), current_time('timestamp'))) . esc_html__(' ago', 'cosmos');
-			$output .= '</time></span>';
-		}
-
-		else {
-
-			$output .= esc_html(get_the_date()) . '</time></span>';
-		}
+		$format = human_time_diff(get_the_time('U'), current_time('timestamp')) . __(' ago', 'cosmos');
 	}
 
 	else {
 
-		$output = '<span class="post-date">' . esc_html($text);
-		$output .= '<time datetime="' . esc_attr(get_the_time('c')) . '">' . esc_html(get_the_date()) . '</time></span>';
+		$format = get_the_date();
 	}
+
+	$output  = $before;
+	$output .= ( empty($icon) ) ? '' : '<i class="icon-'. $icon . '"></i> ';
+	$output .= esc_html($text);
+	$output .= '<time datetime="' . esc_attr(get_the_time('c')) . '">' . esc_html($format) . '</time>';
+	$output .= $after;
 
 	echo $output;
 }
@@ -146,16 +147,22 @@ function cosmos_post_tag($args = '') {
 }
 
 // Display Post Comments
-function cosmos_post_comments($text = '', $icon = true) {
+function cosmos_post_comments($args = '') {
 
-	if ( comments_open() ) {
+	$args = wp_parse_args($args, array(
+		'text' => '',
+		'icon' => 'comment',
+		'before' => '<span class="post-comments">',
+		'after' => '</span>'
+	));
 
-		echo ( empty($text) && $icon ) ? '<span class="post-comments clear"><i class="icon-comment"></i> ' : '<span class="post-comments">' . esc_html($text);
+	extract($args, EXTR_SKIP);
 
-		comments_popup_link( __('0 comments', 'twentyeleven'), __('1 comment', 'cosmos'), __('% comments', 'cosmos'), '', __('Comments off', 'cosmos'));
-
-		echo '</span>';
-	}
+	echo $before;
+	echo ( empty($icon) ) ? '' : '<i class="icon-'. $icon . '"></i> ';
+	echo esc_html($text);
+	comments_popup_link();
+	echo $after;
 }
 
 // Get Current Post's Attachments
