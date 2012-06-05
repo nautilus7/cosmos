@@ -1,13 +1,14 @@
 <?php get_header(); ?>
 
 	<div id="content" class="row-fluid">
-
-		<?php get_template_part('loop', 'single'); ?>
-
-		<?php get_sidebar('right'); ?>
-
+		<div id="main" class="span8">
+			<?php get_template_part('loop', 'single'); ?>
+		</div>
+		<aside id="sidebar-right" class="span4">
+			<?php get_sidebar('right'); ?>
+		</aside>
 	</div>
 
-<?php get_sidebar('bottom'); ?>
+	<?php get_sidebar('bottom'); ?>
 
 <?php get_footer(); ?>

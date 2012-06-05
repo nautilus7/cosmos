@@ -9,6 +9,6 @@
 		</aside>
 	</div>
 
-<?php get_sidebar('bottom'); ?>
+	<?php get_sidebar('bottom'); ?>
 
 <?php get_footer(); ?>
