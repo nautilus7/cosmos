@@ -1,5 +1,5 @@
 /* Additional Theme Java Scripts
- * Author: nautilus7, 2012
+   Author: nautilus7, 2012
  */
 
 // Replace parent href attribute with # in navbar menu
