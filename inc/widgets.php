@@ -4,18 +4,18 @@
 register_sidebar(array(
 	'name'          => 'Left Sidebar',
 	'id'            => 'sidebar-left',
-	'before_widget' => '<li class="widget">',
-	'after_widget'  => '</li>',
-	'before_title'  => '<h4 class="widgettitle">',
+	'before_widget' => '<div class="widget">',
+	'after_widget'  => '</div>',
+	'before_title'  => '<h4>',
 	'after_title'   => '</h4>'
 ));
 
 register_sidebar(array(
 	'name'          => 'Right Sidebar',
 	'id'            => 'sidebar-right',
-	'before_widget' => '<li class="widget">',
-	'after_widget'  => '</li>',
-	'before_title'  => '<h4 class="widgettitle">',
+	'before_widget' => '<div class="widget">',
+	'after_widget'  => '</div>',
+	'before_title'  => '<h4>',
 	'after_title'   => '</h4>'
 ));
 
@@ -24,11 +24,11 @@ register_sidebar(array(
 	'id'            => 'sidebar-bottom',
 	'before_widget' => '<div class="widget">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h5 class="widgettitle">',
+	'before_title'  => '<h5>',
 	'after_title'   => '</h5>'
 ));
 
-function cosmos_bottom_sidebar_params($params) {
+function cosmos_bottom_sidebar_class($params) {
 
 	$sidebar_id = $params[0]['id'];
 
@@ -36,10 +36,11 @@ function cosmos_bottom_sidebar_params($params) {
 
 		$total_widgets = wp_get_sidebars_widgets();
 		$sidebar_widgets = count($total_widgets[$sidebar_id]);
+		$class = 'class="span' . floor(12 / $sidebar_widgets) . ' ';
 
-		$params[0]['before_widget'] = str_replace('class="', 'class="span' . floor(12 / $sidebar_widgets) . ' ', $params[0]['before_widget']);
+		$params[0]['before_widget'] = str_replace('class="', $class, $params[0]['before_widget']);
 	}
 
 	return $params;
 }
-add_filter('dynamic_sidebar_params','cosmos_bottom_sidebar_params');
+add_filter('dynamic_sidebar_params','cosmos_bottom_sidebar_class');

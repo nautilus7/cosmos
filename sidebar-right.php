@@ -1,3 +1,3 @@
-<ul class="nav nav-list well">
+<div class="well">
 	<?php dynamic_sidebar('sidebar-right'); ?>
-</ul>
+</div>
