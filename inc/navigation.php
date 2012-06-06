@@ -144,8 +144,11 @@ class Bootstrap_Walker extends Walker_Nav_Menu {
 
 		$item_output  = $args->before;
 		$item_output .= '<a' . $attributes . '>';
-		$item_output .= $args->link_before . apply_filters('the_title', $item->title, $item->ID) . $args->link_after;
-		$item_output .= ($args->has_children) ? ' <b class="caret"></b>' : ''; // aditional element
+		$item_output .= $args->link_before;
+		$item_output .= apply_filters('the_title', $item->title, $item->ID);
+		$item_output .= !empty($item->description) ? '<span>' . esc_attr($item->description) . '</span>' : ''; // aditional element
+		$item_output .= $args->link_after;
+		$item_output .= ( $args->has_children ) ? ' <b class="caret"></b>' : ''; // aditional element
 		$item_output .= '</a>';
 		$item_output .= $args->after;
 
