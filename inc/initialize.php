@@ -45,3 +45,9 @@ add_action('wp_enqueue_scripts', 'cosmos_enqueue_scripts');
 
 //Add Support for Post-Thumbnails
 add_theme_support('post-thumbnails');
+
+
+
+// Remove default wp widgets
+//add_action('init', function() { do_action('widgets_init'); }, 1);
+//remove_action('init', 'wp_widgets_init', 1);
