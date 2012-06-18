@@ -40,13 +40,13 @@ function cosmos_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'cosmos_enqueue_scripts');
 
-// Register Image Sizes
-
-
 //Add Support for Post-Thumbnails
 add_theme_support('post-thumbnails');
 
-
+// Register Image Sizes
+set_post_thumbnail_size(80, 80, true);
+add_image_size('archive', 250, 250, true);
+add_image_size('related', 360, 225, true);
 
 // Remove default wp widgets
 //add_action('init', function() { do_action('widgets_init'); }, 1);
