@@ -19,6 +19,12 @@ Tags: bootstrap, html5, boilerplate, responsive, fluid, microdata, schema.org, t
 	margin: auto;
 }
 
+body {
+	font-family: Georgia;
+	font-size: 1em;
+	line-height: 1.4em;
+}
+
 p {
 	margin: 0 0 1.5em;
 }
@@ -26,6 +32,66 @@ p {
 i[class*="icon"] {
 	color: tomato;
 }
+
+.home article {
+	padding: 0 0 2em;
+	border-bottom: 5px tomato solid;
+	margin-bottom: 4em;
+}
+
+.home .post-meta {
+	padding-top: 0.5em;
+	padding-bottom: 1em;
+}
+.post-author {
+	display: block;
+	padding-bottom: 0.25em;
+	border-bottom: 1px solid #DDD;
+}
+
+.post-date,
+.post-category,
+.post-tags,
+.post-comments {
+	display: inline-block;
+	padding-right: 2em;
+	padding-top: 0.25em;
+}
+
+.author-bio h1 {
+	padding-bottom: 1em;
+}
+.gravatar {
+	float: right;
+	padding: 0 0 2em 2em;
+}
+
+.gravatar img {
+	border-radius: 50%;
+}
+
+.author .post {
+	width: 95%;
+}
+
+.author .post-meta {
+	border-top: 1px solid #DDD;
+	margin-top: 1em;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+.post-meta .post-thumb {
+	float: right;
+	position: relative;
+	top: -62px;
+	right: -25px;
+}
+
+.post-meta .post-thumb a {
+	width: 80px;
+}
+
 
 /* =============================================================================
    Embedded content
