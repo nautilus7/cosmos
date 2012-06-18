@@ -11,7 +11,7 @@ add_filter('excerpt_length', 'cosmos_excerpt_length', 10, 0);
 function cosmos_excerpt_more() {
 
 	//return '<a href="' . esc_url(get_permalink()) . '" title="" class="btn">' . esc_html__('Continue Reading', 'cosmos') . '</a>';
-	return '&#8230';
+	return '&#8230;';
 }
 add_filter('excerpt_more', 'cosmos_excerpt_more', 10, 0);
 
@@ -181,7 +181,16 @@ function cosmos_post_attachments($args) {
 
 // Get Featured Image or First Attached Image from Current Post
 // (for home page and archive page loop)
-function cosmos_post_thumbnail($fallback_img_id = '') {
+function cosmos_post_thumbnail($args = '') {
+
+	$args = wp_parse_args($args, array(
+		'size' => 'post-thumbnail',
+		'default' => '',
+		'before' => '<span class="post-thumb">',
+		'after' => '</span>'
+	));
+
+	extract($args, EXTR_SKIP);
 
 	if ( has_post_thumbnail() ) {
 
@@ -195,13 +204,18 @@ function cosmos_post_thumbnail($fallback_img_id = '') {
 
 	else {
 
-		$img_id = $fallback_img_id;
+		$img_id = $default;
 	}
 
-	$img_src = ( !empty($img_id) ) ? wp_get_attachment_url($img_id) : 'http://lorempixel.com/400/400/';
+	$img = wp_get_attachment_image_src($img_id, $size);
+
+	$img_src = ( !empty($img_id) ) ? $img[0] : 'http://lorempixel.com/400/400/';
 	$img_alt = get_post_meta($img_id, '_wp_attachment_image_alt', true);
 
-	echo '<a href="' . esc_url(get_permalink()) . '" title="' . esc_attr(get_the_title()) . '" class="thumbnail">';
-	echo '<img src="' . esc_url($img_src) . '" alt="' . esc_attr($img_alt) . '"/>';
-	echo '</a>';
+	$output  = $before;
+	$output .= '<a href="' . esc_url(get_permalink()) . '" title="' . esc_attr(get_the_title()) . '" class="thumbnail">';
+	$output .= '<img src="' . esc_url($img_src) . '" alt="' . esc_attr($img_alt) . '"/></a>';
+	$output .= $after;
+
+	echo $output;
 }
