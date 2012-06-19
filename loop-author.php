@@ -8,6 +8,8 @@
 		<?php endif; ?>
 		<?php if ( get_the_author_meta('user_description') ) : ?>
 			<p><?php the_author_meta('user_description'); ?></p>
+		<?php else : ?>
+			<p><?php _e('The Author hasn&#39;t written a bio yet&hellip;', 'cosmos'); ?></p>
 		<?php endif; ?>
 
 	</article>
