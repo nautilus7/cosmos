@@ -11,7 +11,7 @@ add_filter('excerpt_length', 'cosmos_excerpt_length', 10, 0);
 function cosmos_excerpt_more() {
 
 	//return '<a href="' . esc_url(get_permalink()) . '" title="" class="btn">' . esc_html__('Continue Reading', 'cosmos') . '</a>';
-	return '&#8230;';
+	return '&hellip;';
 }
 add_filter('excerpt_more', 'cosmos_excerpt_more', 10, 0);
 
