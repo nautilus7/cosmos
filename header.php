@@ -11,7 +11,6 @@
 	<meta name="viewport" content="width=device-width">
 	<link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> Feed" href="<?php echo home_url('/feed/'); ?>">
 	<!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
-	<meta name="author" content="">
 	<?php wp_head(); ?>
 </head>
 
