@@ -7,8 +7,14 @@
 		<?php cosmos_post_author(array('text' => 'Written by ', 'icon' => false)); ?>
 	</header>
 
-	<?php the_content(); ?>
-	<?php cosmos_post_date(' on '); cosmos_post_category(' in '); cosmos_post_tag(' tagged '); cosmos_post_comments(' with '); ?>
+	<div class="post-body">
+		<?php the_content(); ?>
+	</div>
+
+	<div class="post-meta">
+		<?php cosmos_post_date(' on '); cosmos_post_category(' in '); cosmos_post_tag(' tagged '); cosmos_post_comments(' with '); ?>
+	</div>
+
 	<?php comments_template(); ?>
 
 </article>
