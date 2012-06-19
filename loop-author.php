@@ -1,6 +1,6 @@
 <?php if ( have_posts() ) : ?>
 
-	<article class="author-bio well clearfix">
+	<article id="author" class="well clearfix">
 
 		<h1><?php _e('Author: ', 'cosmos'); the_author_link(); ?></h1>
 		<?php if ( get_avatar(get_the_author_meta('ID')) ) : ?>
