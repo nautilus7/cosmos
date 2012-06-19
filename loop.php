@@ -1,6 +1,7 @@
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
 	<header>
 		<h1><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
 		<div class="post-meta clearfix">
@@ -11,6 +12,7 @@
 			cosmos_post_comments(); ?>
 		</div>
 	</header>
+
 	<div class="row-fluid">
 		<div class="span3">
 			<?php cosmos_post_thumbnail(array('size' => 'archive')); ?>
@@ -20,6 +22,7 @@
 			<a href="<?php esc_url(the_permalink()); ?>" title="" class="btn"><?php esc_html_e('Continue Reading', 'cosmos'); ?></a>
 		</div>
 	</div>
+
 </article>
 
 <?php endwhile; ?>
