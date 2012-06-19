@@ -2,7 +2,7 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<header>
+	<header class="page-header">
 		<h1><?php the_title(); ?></h1>
 		<?php cosmos_post_author(array('text' => 'Written by ', 'icon' => false)); ?>
 	</header>
