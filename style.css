@@ -26,8 +26,11 @@ body {
 }
 
 p {
-	padding: 0.5em 0;
 	margin: 0;
+}
+
+p + p {
+	padding: 1em 0 0;;
 }
 
 i[class*="icon"] {
@@ -44,16 +47,8 @@ i[class*="icon"] {
 	padding-top: 0.5em;
 	padding-bottom: 1em;
 }
-.post-author {
-	display: block;
-	padding-bottom: 0.25em;
-	border-bottom: 1px solid #DDD;
-}
 
-.post-body {
-	padding: 0.5em 0;
-}
-
+.post-author,
 .post-date,
 .post-category,
 .post-tags,
@@ -63,7 +58,8 @@ i[class*="icon"] {
 	padding-top: 0.25em;
 }
 
-.author-bio h1 {
+#author h1,
+#category h1 {
 	padding-bottom: 1em;
 }
 .gravatar {
