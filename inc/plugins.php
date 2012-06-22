@@ -20,19 +20,18 @@ function cosmos_google_analytics() {
 
 	//if ($options['ga_enable']) {
 
-?>
-<script>
-	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-28533366-1']);
-	_gaq.push(['_trackPageview']);
+		$output  = "<script>\n\t";
+		$output .= "var _gaq = _gaq || [];\n\t";
+		$output .= "_gaq.push(['_setAccount', 'UA-28533366-1']);\n\t";
+		$output .= "_gaq.push(['_trackPageview']);\n\n\t";
+		$output .= "(function() {\n\t";
+		$output .= "var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;\n\t";
+		$output .= "ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';\n\t";
+		$output .= "var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);\n\t";
+		$output .= "})();\n";
+		$output .= "</script>\n\n";
 
-	(function() {
-		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	})();
-</script>
-<?php
+		echo $output;
 	//}
 }
 add_action('wp_footer', 'cosmos_google_analytics', 20, 0);
